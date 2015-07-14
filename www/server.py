@@ -120,6 +120,12 @@ def visualize():
 	listOfParams = listOfParams.split(",")
 	firstThing = listOfParams[0]
 	data = getData(listOfParams, sort)
+	
+	#title=''
+	#for item in listOfParams:
+	#	title+=" "
+	#	title+=str(item)
+		
 	title = firstThing
 
 	return render_template('chart.html', title=title, data=json.dumps(data, sort_keys=True, indent=None, default=json_util.default))
@@ -134,9 +140,16 @@ def getData(listOfParams, sort):
 	fieldList["mongo_datetime"]=1
 	
 	for item in listOfParams:
-		query.append({item : {'$exists':'true'} })
-		fieldList[item]= 1
-
+		if not '=' in item:
+			query.append({item : {'$exists':'true'} })
+			fieldList[item]= 1
+		else:
+			thisParam=item.split("=")
+			thisField=thisParam[0]
+			thisValue=thisParam[1]
+			query.append({thisField : int(thisValue)})  # note -- only works with integer values currently
+			
+    
 	print fieldList	
 	q = app.db.waterdata_collection.find({'$and': query}, fieldList).sort([("mongo_datetime",sort)])
 	for row in q:
