@@ -26,13 +26,13 @@
        
         
         $.each(theData, function (i, row) {
-          //console.log(i)
-          theDateTime = new Date(row.current_observation.datetime['$date']);
-          console.log(row.current_observation.datetime['$date'])
-          console.log(row.current_observation.temp_f)
+          console.log(row)
+          theDateTime = new Date(row.mongo_datetime['$date']);
+          console.log(row.mongo_datetime['$date'])
+          console.log(row.temp_c)
           data.addRow([
             (theDateTime),
-            parseFloat(row.current_observation.temp_f)
+            parseFloat(row[title])
           ]);
         });
         

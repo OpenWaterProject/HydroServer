@@ -1,13 +1,9 @@
-[api]
-wunderground_key:
-
-
 [db]
 host: 
 user: 
 pass: 
-name: babbling_brook
+name: hydrodb
 port: 27017
-auth_db:babbling_brook
-weather_collection:weather
-jokes_collection:jokes
+auth_db:hydrodb
+waterdata_collection:waterdata
+
